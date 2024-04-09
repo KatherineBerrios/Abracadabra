@@ -7,6 +7,7 @@ Desafío evaluado «Abracadabra» de la unidad 1, módulo 6 del bootcamp Full St
 En este desafío se validará los conocimientos de Node y Express, además de la creación de rutas, Objetos Request y Response, Middlewares y Devolución de sitios web estáticos.
 
 ## Requerimientos
+
 1. Crear un servidor con Express en el puerto 3000. (2 Puntos)
 2. Definir la carpeta “assets” como carpeta pública del servidor. (1 Punto)
 3. Crear en el servidor un arreglo de nombres y devolverlo en formato JSON a través de
