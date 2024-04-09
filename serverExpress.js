@@ -3,34 +3,34 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
+// Arreglo usuarios alojado en el servidor
+const usuarios = [ "Juan", "Jocelyn", "Astrid", "Maria", "Ignacia", "Javier", "Brian"];
+
 //Configurar el servidor para servir archivos estáticos desde la carpeta 'assets'
 app.use(express.static(path.join(__dirname, "assets")));
 
 // JSON con un arreglo de nombres alojado en el servidor
 app.get("/abracadabra/usuarios", (req, res) => {
-  const usuario = {
-    usuarios: [ "Juan", "Jocelyn", "Astrid", "Maria", "Ignacia", "Javier", "Brian"] };
-  res.send(usuario);
+  //Muestra los datos del arreglo usuarios
+  res.send(usuarios);
 });
 
 // Middleware
 app.use("/abracadabra/juego/:usuario", (req, res, next) => {
-  // Validaciones
-  // const Auth = req.header("Authorization");
-  // console.log(Auth);
-
 const usuario = req.params.usuario;
-  usuario
-    ? // Si la constante es verdadera, ejecuta next()
-      next()
-    : // Si la constante no es verdadera, hará una pregunta
-      res.send("<center><img src=/who.jpeg /></center>");
+// Verifica que el usuario escrito como parámetro existe en el arreglo alojado en el servidor
+usuarios.includes(usuario)
+  // Si el nombre se encuentra en el arreglo, ejecuta next()
+  ? next()
+  // Si el nombre no se encuentra en el arreglo, hará una pregunta
+  :res.send(
+    "<center><h1 style=color:blue>¿Quién eres? 🤔 </h1><br><img src=/who.jpeg /></center>"
+  );
 });
 
+// Si el usuario existe en el arreglo de nombres, permite el paso a la ruta GET
 app.get("/abracadabra/juego/:usuario", (req, res) => {
-  // Paso 5
-  const usuario = req.params.usuario;
-  usuario
+  // Muestra la pagina del juego Abracadabra
   res.sendFile(__dirname + "/index.html");
 });
 
@@ -57,6 +57,6 @@ app.listen(3000, () => {
 // Rutas genéricas
 app.get("*", (req, res) => {
   res.send(
-    "<center><h1 style=color:red>Esta página no existe... ☹ </h1><br><iframe src=https://giphy.com/embed/2A75RyXVzzSI2bx4Gj width= 480 height= 480 frameBorder=0 class=giphy-embed allowFullScreen></iframe><p><a href= https://giphy.com/gifs/hallmarkecards-cute-hallmark-shoebox-2A75RyXVzzSI2bx4Gj >via GIPHY</a></p></center>"
+    "<center><h1 style=color:red>Esta página no existe... 👻 </h1><br><iframe src=https://giphy.com/embed/2A75RyXVzzSI2bx4Gj width= 480 height= 480 frameBorder=0 class=giphy-embed allowFullScreen></iframe><p><a href= https://giphy.com/gifs/hallmarkecards-cute-hallmark-shoebox-2A75RyXVzzSI2bx4Gj >via GIPHY</a></p></center>"
   );
 });
